@@ -1,0 +1,38 @@
+<h1>登録画面</h1>
+<%= form_for @user, url: { action: :create } do |f| %>
+    <p>
+        <%= label_tag :uid, 'ユーザーID' %>
+        <%= text_field_tag :uid %>
+    </p>
+    <p>
+        <%= f.label :pass, 'パスワード' %>
+        <%= f.password_field :pass %>
+    </p>
+    <p>
+        <%= f.label :pass_confirmation, 'パスワード(確認)' %>
+        <%= f.password_field :pass_confirmation %>
+    </p>
+    <p>
+        <%= label_tag :last_name, '姓' %>
+        <%= text_field_tag :last_name %>
+        <%= label_tag :name, '名' %>
+        <%= text_field_tag :name %>
+    </p>
+    <p>
+        <%= label_tag :gender, '性別' %>
+        <%= text_field_tag :gender %>
+    </p>
+    <p>
+        <%= label_tag :address, 'メールアドレス' %>
+        <%= text_field_tag :address %>
+    </p>
+    <p>
+        <%= label_tag :phone_number, '電話番号' %>
+        <%= text_field_tag :phone_number %>
+    </p>
+    <p>
+        <%= label_tag :birth, '生年月日' %>
+        <%= text_field_tag :birth %>
+    </p>
+    <%= submit_tag '登録' %>
+<% end %>
