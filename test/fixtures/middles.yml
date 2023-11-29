@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  did: MyString
+  up_middle_id: 1
+  major_id: 1
+
+two:
+  did: MyString
+  up_middle_id: 1
+  major_id: 1

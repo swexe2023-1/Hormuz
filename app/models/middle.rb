@@ -1,0 +1,2 @@
+class Middle < ApplicationRecord
+end

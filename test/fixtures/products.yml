@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pid: MyString
+  seller_id: 1
+  price: 1
+  description: MyString
+  img: MyString
+
+two:
+  pid: MyString
+  seller_id: 1
+  price: 1
+  description: MyString
+  img: MyString

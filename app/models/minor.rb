@@ -1,0 +1,2 @@
+class Minor < ApplicationRecord
+end
