@@ -1,0 +1,2 @@
+class BuyResultController < ApplicationController
+end
