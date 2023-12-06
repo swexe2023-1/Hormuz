@@ -1,0 +1,28 @@
+<% def adjust(top,c) %>
+    <% c+=1 %>
+    <% t=@middle.where(up_middle_id: top) %>
+    <% if t.size==0 %>
+    <% #break %>
+    
+    <% else %>
+    <% t.each do |y| %>
+    <p>中カテゴリ名<%=# c %><%=# t.did %></p>
+    <% adjust(t.did,c) %>
+    <% end %>
+    
+    <% end %>
+<% end %>
+
+<p>大カテゴリ名:　<%= @major.jid %></p>
+<% if @middle==nil || @middle.size==0%>
+<%= form_tag '/serch_product/regist_category',method: :get, data: { turbo: false } do %>
+<%= label_tag :mc, '中カテゴリ追加' %>
+<%= text_field_tag :mc %>
+<%= hidden_field_tag :um, nil %>
+<%= hidden_field_tag :major_id, @major.id %>
+<%= submit_tag '登録' %>
+<% end %>
+
+<% else %>
+<% adjust(nil,0) %>
+<% end %>

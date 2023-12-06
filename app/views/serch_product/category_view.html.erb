@@ -1,0 +1,18 @@
+<h1>category_view</h1>
+<% #major追加用 %>
+<%= form_tag '/serch_product/category_view',method: :post, data: { turbo: false } do %>
+<%= label_tag :nc, 'カテゴリ追加' %>
+<%= text_field_tag :nc %>
+<%= submit_tag '登録' %><br>
+<% end %>
+
+
+<% #major一覧表示 %>
+<% @all_major.each do |ma| %>
+<p>-----------------------------------</p>
+<p><%= ma[:jid] %></p>
+<%= button_to 'カテゴリ編集','regist_category',{method: :get,params: {m_id: ma[:id]}} %>
+<%= button_to 'カテゴリ削除','category_all_delete',{method: :post,params: {m_id: ma[:id]}} %>
+
+<% end %>
+
