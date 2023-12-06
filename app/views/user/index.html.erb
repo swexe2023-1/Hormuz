@@ -1,0 +1,12 @@
+<% @users.each do |e| %>
+    <p>
+        <%= e.uid %>
+        <%= link_to '削除', user_path(e), data: { turbo_method: :delete } %>
+    </p>
+<% end %>
+
+<% if current_user %>
+    <p><%= link_to "ログアウト", user_logout_path%></p>
+<% else %>
+    <p><%= link_to "ログイン", user_main_path%></p>
+<% end %>
