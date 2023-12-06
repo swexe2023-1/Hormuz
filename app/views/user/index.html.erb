@@ -5,8 +5,9 @@
     </p>
 <% end %>
 
-<% if current_user %>
+<% if current_user || current_seller %>
     <p><%= link_to "ログアウト", user_logout_path%></p>
 <% else %>
     <p><%= link_to "ログイン", user_main_path%></p>
+    <p><%= link_to "販売者ログイン", seller_main_path%></p>
 <% end %>
