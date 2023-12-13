@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   get "serch_product/category_view", to: "serch_product#category_view"
   post "serch_product/category_view", to: "serch_product#category_view"
   post "serch_product/category_all_delete", to: "serch_product#category_all_delete"
+  post "serch_product/delete", to: "serch_product#delete"
   get "serch_product/regist_category", to: "serch_product#regist_category"
-  post "serch_product/regist_category", to: "serch_product#regist_category"
+  #post "serch_product/regist_category", to: "serch_product#regist_category"
   get "buy_result/cart_view", to: "buy_result#cart_view"
   #root "serch_product#category_view"
 end
