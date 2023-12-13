@@ -3,14 +3,17 @@ Rails.application.routes.draw do
   get 'user/index'
   root 'user#index'
   get 'user/new'
-  post 'user/login'
+  post 'user/signin'
   get 'user/logout'
-  get 'user/main'
+  get 'user/login'
   resources :user, only: [:create, :destroy]
   resources :seller, only: [:index,:new,:create,:destroy]
-  post 'seller/login'
+  post 'seller/signin'
   get 'seller/logout'
-  get 'seller/main'
+  get 'seller/login'
+  resources :admin, only: [:index,:new,:create,:destroy]
+  post 'admin/signin'
+  get 'admin/logout'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

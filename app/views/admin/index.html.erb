@@ -1,0 +1,11 @@
+<h1>管理者ログイン</h1>
+
+<%= form_tag admin_signin_path, method: :post, data: { turbo: false } do %>
+    <%= label_tag :aid, '管理者ID' %>
+    <%= text_field_tag :aid %>
+    <%= label_tag :password, 'パスワード' %>
+    <%= password_field_tag :password %>
+    <%= submit_tag 'ログイン' %>
+<% end %>
+
+<!--%= link_to "新規登録", admin_new_path%>

@@ -1,6 +1,6 @@
 <h1>ログイン</h1>
 
-<%= form_tag seller_login_path, method: :post, data: { turbo: false } do %>
+<%= form_tag seller_signin_path, method: :post, data: { turbo: false } do %>
     <%= label_tag :sid, '販売者ID' %>
     <%= text_field_tag :sid %>
     <%= label_tag :password, 'パスワード' %>

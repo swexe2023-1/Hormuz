@@ -6,6 +6,7 @@ class UserController < ApplicationController
   
   def new
     @user = User.new
+    render layout: "no_sidebar"
   end
 
   def create
@@ -27,11 +28,11 @@ class UserController < ApplicationController
     redirect_to user_index_path
   end
   
-  def main
-    render 'login'
+  def login
+    render layout: "no_sidebar"
   end
   
-  def login
+  def signin
     user = User.find_by(uid: params[:uid])
     if user && BCrypt::Password.new(user.password) == params[:password]
       session[:login_uid] = params[:uid]
@@ -40,6 +41,7 @@ class UserController < ApplicationController
     else
       render "login"
     end
+    
   end
   
   def logout

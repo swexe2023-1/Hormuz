@@ -20,7 +20,8 @@
     </p>
     <p>
         <%= label_tag :gender, '性別' %>
-        <%= text_field_tag :gender %>
+        <%= check_box_tag :gender, '男' %>男
+        <%= check_box_tag :gender, '女' %>女
     </p>
     <p>
         <%= label_tag :address, 'メールアドレス' %>
@@ -32,7 +33,9 @@
     </p>
     <p>
         <%= label_tag :birth, '生年月日' %>
-        <%= text_field_tag :birth %>
+        <%= f.date_select :birth, {start_year: 1950, end_year: 2023,
+        include_blank: true, use_two_digit_numbers: true},
+        {class: "input-tab birthday-select"}%>
     </p>
     <%= submit_tag '登録' %>
 <% end %>

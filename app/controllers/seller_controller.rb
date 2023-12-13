@@ -26,11 +26,11 @@ class SellerController < ApplicationController
         redirect_to root_path
     end
       
-    def main
-        render 'login'
+    def login
+        render layout: "no_sidebar"
     end
       
-    def login
+    def signin
         seller = Seller.find_by(sid: params[:sid])
         if seller && BCrypt::Password.new(seller.password) == params[:password]
           session[:login_sid] = params[:sid]
