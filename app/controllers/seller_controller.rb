@@ -2,6 +2,8 @@ require 'bcrypt'
 class SellerController < ApplicationController
     def index
         @sellers = Seller.all
+        @products = Product.all
+        render layout: "no_sidebar"
     end
   
     def new
@@ -36,7 +38,7 @@ class SellerController < ApplicationController
         if seller && BCrypt::Password.new(seller.password) == params[:password]
           session[:login_sid] = params[:sid]
           @sellers = Seller.all
-          redirect_to root_path
+          redirect_to seller_index_path
         else
           render "login"
         end
