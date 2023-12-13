@@ -1,18 +1,20 @@
 require 'bcrypt'
 class AdminController < ApplicationController
     def index
+        @sellers = Seller.all
         render layout: "no_sidebar"
     end
   
     def new
         @admin = Admin.new
+        render layout: "no_sidebar"
     end
 
     def create
         #create_pass = BCrypt::Password.create(params[:password])
-        @admin = Admin.new(aid: params[:aid], pass: params[:seller][:pass])
+        @admin = Admin.new(aid: params[:aid], pass: params[:admin][:pass])
         if @admin.save
-            redirect_to root_path
+            redirect_to admin_index_path
         else
             render 'new'
         end
@@ -24,14 +26,12 @@ class AdminController < ApplicationController
         redirect_to root_path
     end
       
-  
-      
     def signin
         admin = Admin.find_by(aid: params[:aid])
         if admin && BCrypt::Password.new(admin.password) == params[:password]
           session[:login_aid] = params[:aid]
           @admin = Admin.all
-          redirect_to root_path
+          redirect_to admin_index_path
         else
           render "login"
         end
@@ -39,6 +39,6 @@ class AdminController < ApplicationController
       
     def logout
         session.delete(:login_aid)
-        redirect_to root_path
+        redirect_to admin_index_path
     end
 end

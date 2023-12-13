@@ -1,0 +1,28 @@
+<h1>店舗登録画面</h1>
+<%= form_for @seller, url: { action: :create } do |f| %>
+    <p>
+        <%= label_tag :sid, '販売者ID' %>
+        <%= text_field_tag :sid %>
+    </p>
+    <p>
+        <%= label_tag :store_name, '店舗名' %>
+        <%= text_field_tag :store_name %>
+    </p>
+    <p>
+        <%= f.label :pass, 'パスワード' %>
+        <%= f.password_field :pass %>
+    </p>
+    <p>
+        <%= f.label :pass_confirmation, 'パスワード(確認)' %>
+        <%= f.password_field :pass_confirmation %>
+    </p>
+    <p>
+        <%= label_tag :address, 'メールアドレス' %>
+        <%= text_field_tag :address %>
+    </p>
+    <p>
+        <%= label_tag :phone, '電話番号' %>
+        <%= text_field_tag :phone %>
+    </p>
+    <%= submit_tag '登録' %>
+<% end %>

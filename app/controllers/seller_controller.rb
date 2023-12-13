@@ -6,6 +6,7 @@ class SellerController < ApplicationController
   
     def new
         @seller = Seller.new
+        render layout: "no_sidebar"
     end
 
     def create
@@ -14,7 +15,7 @@ class SellerController < ApplicationController
         pass: params[:seller][:pass], address: params[:address],
         phone: params[:phone], pass_confirmation: params[:pass_confirmation])
         if @seller.save
-            redirect_to root_path
+            redirect_to admin_index_path
         else
             render 'new'
         end

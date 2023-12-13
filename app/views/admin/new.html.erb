@@ -1,0 +1,16 @@
+<h1>管理者登録画面</h1>
+<%= form_for @admin, url: { action: :create } do |f| %>
+    <p>
+        <%= label_tag :aid, '管理者ID' %>
+        <%= text_field_tag :aid %>
+    </p>
+    <p>
+        <%= f.label :pass, 'パスワード' %>
+        <%= f.password_field :pass %>
+    </p>
+    <p>
+        <%= f.label :pass_confirmation, 'パスワード(確認)' %>
+        <%= f.password_field :pass_confirmation %>
+    </p>
+    <%= submit_tag '登録' %>
+<% end %>
