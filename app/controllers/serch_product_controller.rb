@@ -16,16 +16,16 @@ class SerchProductController < ApplicationController
     end
     
     def regist_category
-        if @major_id==nil && params[:major_id]==nil
-        @major_id=params[:m_id]
+        if session[:edit_id]==nil || session[:edit_id]!=params[:m_id]
+        session[:edit_id]=params[:m_id]
         end
         
         if params[:mc]!=nil
             add_middle
         end
         #@major_id=12
-        @regi_cate=[Major.find(@major_id).jid]
-        middles=Middle.where(major_id: @major_id)
+        @regi_cate=[Major.find(session[:edit_id]).jid]
+        middles=Middle.where(major_id: session[:edit_id])
         
         if middles.size>0
         middles.each do |ms|
@@ -48,16 +48,16 @@ class SerchProductController < ApplicationController
             params[:mc]=nil
         end
         
-        if params[:r_major_id]!=nil
-        @major_id=params[:r_major_id]
+        if session[:edit_id]==nil
+        session[:edit_id]=params[:m_id]
         end
     end
     
     
     def delete
-        #x=Middle.find(params[:m_id])
+        @x=Middle.find(params[:m_id])
         
-        #test_calc(x.id)
+        test_calc(@x.class)
         #x.destroy
         #params[:mc]=nil
         #@major_id=params[:r_major_id]

@@ -1,1 +1,6 @@
 <h1>delete</h1>
+<% if @x.kind_of?(Middle) %>
+<p><%= @x.did %>を削除しました</p>
+<% else %>
+<p><%= @x.nid %>を削除しました</p>
+<% end %>
