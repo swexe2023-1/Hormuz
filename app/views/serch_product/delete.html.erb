@@ -1,6 +1,5 @@
 <h1>delete</h1>
-<% if @x.kind_of?(Middle) %>
-<p><%= @x.did %>を削除しました</p>
-<% else %>
-<p><%= @x.nid %>を削除しました</p>
-<% end %>
+<p>削除しました</p>
+<%= session[:edit_id] %>
+<%= link_to "前ページへ戻る","/serch_product/regist_category"%>
+

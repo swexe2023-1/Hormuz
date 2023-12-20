@@ -12,11 +12,21 @@ class SerchProductController < ApplicationController
     
     def category_all_delete
         Major.find(params[:m_id]).destroy
+        mid=Middle.where(params[:m_id])
+        if mid.size<0
+        else
+            mid.each do |d|
+                minor=Minor.where(middle_id: d.id)
+                if minor.size>0
+                    minor.destroy_all
+                end
+            end
+        end
         redirect_to '/serch_product/category_view'
     end
     
     def regist_category
-        if session[:edit_id]==nil || session[:edit_id]!=params[:m_id]
+        if session[:edit_id]==nil# || session[:edit_id]!=params[:m_id]
         session[:edit_id]=params[:m_id]
         end
         
@@ -55,21 +65,38 @@ class SerchProductController < ApplicationController
     
     
     def delete
-        @x=Middle.find(params[:m_id])
-        
-        test_calc(@x.class)
-        #x.destroy
-        #params[:mc]=nil
-        #@major_id=params[:r_major_id]
-        
-        #@reload_flag=true
-        #ここに変数が入ります
-        test_calc(1)
+        params[:m_id]=session[:edit_id]
+        if params[:d_id]!=nil
+            x=Middle.find(params[:d_id])
+            #x.destroy
+            #x=Middle.where(up_middle_id: params[:d_id])
+            delete_middles(x)
+            x.destroy
+            
+        elsif params[:j_id]!=nil
+            x=Minor.find(params[:j_id])
+            #x.destroy
+        end
+        params[:d_id]=nil
+        params[:j_id]=nil
+        params[:mc]=nil
     end
     
     def test_calc(p)
         puts '------------'
         puts p
         puts '------------'
+    end
+    
+    def delete_middles(pa)
+        x=Middle.where(up_middle_id: pa.id)
+        if x.size<=0
+            pa.destroy
+        else
+            x.each do |q|
+                delete_middles(q)
+                q.destroy
+            end
+        end
     end
 end
