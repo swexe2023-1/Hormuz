@@ -3,6 +3,7 @@ class SerchProductController < ApplicationController
     end
     
     def category_view
+        session[:edit_id]=nil
         @all_major=Major.all
         if(params[:nc]!=nil && @all_major.find_by(jid: params[:nc])==nil)
             Major.create(jid: params[:nc])
