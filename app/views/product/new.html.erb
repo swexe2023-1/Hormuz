@@ -1,12 +1,12 @@
 <h1>商品追加画面</h1>
-<%= form_for @prduct, url: { action: :create } do |f| %>
-    <p>
-        <%= label_tag :pid, '商品名' %>
-        <%= text_field_tag :sid %>
-    </p>
+<%= form_for @product, url: { action: :create } do |f| %>
     <p>
         <%= label_tag :seller_id, '販売者ID' %>
         <%= text_field_tag :seller_id %>
+    </p>
+    <p>
+        <%= label_tag :pid, '商品名' %>
+        <%= text_field_tag :sid %>
     </p>
     <p>
         <%= label_tag :price, '価格' %>

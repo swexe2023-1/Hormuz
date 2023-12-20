@@ -1,12 +1,15 @@
 <% if current_admin %>
+    <h1>店舗一覧</h1>
     <% @sellers.each do |e| %>
         <p>
             <%= e.sid %>
             <%= link_to '削除', seller_path(e), data: { turbo_method: :delete } %>
         </p>
     <% end %>
-
+    
+    <hr>
     <p><%= link_to "店舗追加", new_seller_path%></p>
+    <p><%= link_to "カテゴリ編集", serch_product_category_view_path%></p>
     <p><%= link_to "ログアウト", admin_logout_path%></p>
 <% else %>
     

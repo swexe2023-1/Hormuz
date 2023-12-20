@@ -4,9 +4,9 @@ class ProductController < ApplicationController
     end
     
     def create
-      @product = Product.new(pid: params[:product][:pid], seller_id: params[:product][:seller_id],
-      price: params[:product][:price], description: params[:product][:description], 
-      img: params[:product][:img])
+      @product = Product.new(pid: params[:pid], seller_id: params[:seller_id],
+      price: params[:price], description: params[:description], 
+      img: params[:img])
       @product.save
       redirect_to seller_index_path
     end

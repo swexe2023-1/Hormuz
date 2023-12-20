@@ -5,7 +5,7 @@
 <%= text_field_tag :nc %>
 <%= submit_tag '登録' %><br>
 <% end %>
-
+<p><%= link_to '戻る', admin_index_path%></p>
 
 <% #major一覧表示 %>
 <% @all_major.each do |ma| %>

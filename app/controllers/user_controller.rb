@@ -1,7 +1,7 @@
 require 'bcrypt'
 class UserController < ApplicationController
   def index
-    @users = User.all
+    @all_major=Major.all
   end
   
   def new

@@ -1,7 +1,6 @@
 require 'bcrypt'
 class SellerController < ApplicationController
     def index
-        @sellers = Seller.all
         @products = Product.all
         render layout: "no_sidebar"
     end
