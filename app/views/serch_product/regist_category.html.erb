@@ -23,7 +23,9 @@
 <% else %>
 <p>上位カテゴリ:<%= Middle.find(rc.up_middle_id).did %></p>
 <%end %>
-<%= button_to 'カテゴリ削除','delete',{method: :get,params: {m_id: rc.id,}} %>
+<% if rc.kind_of?(Middle) %>
+<%= button_to 'カテゴリ削除','delete',{method: :get,params: {d_id: rc.id,}} %>
+<% end %>
 
  <%= form_tag '/serch_product/regist_category',method: :get, data: { turbo: false } do %>
 <%= label_tag :mc, '中カテゴリ追加' %>

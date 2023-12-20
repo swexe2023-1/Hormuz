@@ -1,0 +1,8 @@
+<% if current_user %>
+    <p><%= link_to "ログアウト", user_logout_path%></p>
+<% elsif current_seller %>
+    <p><%= link_to "ログアウト", seller_logout_path%></p>
+<% else %>
+    <p><%= link_to "ログイン", user_login_path%></p>
+    <p><%= link_to "新規登録", new_admin_path %></p>
+<% end %>
