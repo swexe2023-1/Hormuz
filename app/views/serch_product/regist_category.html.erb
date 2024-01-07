@@ -1,6 +1,6 @@
 <% major=true %>
+<%= link_to "前ページへ戻る","/serch_product/category_view"%>
 <% @regi_cate.each do |rc| %>
-
  <p>-----------------------</p>
  <% if rc.kind_of?(String) %>
  <% if major %>
@@ -15,7 +15,7 @@
  <% end %>
  
 <% major=false %>
-<% else %>
+<% elsif rc.kind_of?(Middle) %>
 <p>中カテゴリ名:<%= rc.did %></p>
 <% if rc.up_middle_id.nil? %>
 <p>上位カテゴリ:無し(大カテゴリ)</p>
@@ -23,29 +23,33 @@
 <% else %>
 <p>上位カテゴリ:<%= Middle.find(rc.up_middle_id).did %></p>
 <%end %>
-<% if rc.kind_of?(Middle) %>
-<%= button_to 'カテゴリ削除','delete',{method: :get,params: {d_id: rc.id,}} %>
-<% end %>
+
+<%= button_to 'カテゴリ削除','delete',{method: :get,params: {d_id: rc.id,target: 'middle'}} %>
 
  <%= form_tag '/serch_product/regist_category',method: :get, data: { turbo: false } do %>
 <%= label_tag :mc, '中カテゴリ追加' %>
 <%= text_field_tag :mc %>
 <%= hidden_field_tag :r_major_id, session[:edit_id] %>
 <%= hidden_field_tag :upm, rc.id %>
+<%= hidden_field_tag :mi,nil %>
 <%= submit_tag '登録' %><br>
  <% end %>
  
 <%= form_tag '/serch_product/regist_category',method: :get, data: { turbo: false } do %>
 <%= label_tag :mi, '小カテゴリ追加' %>
 <%= text_field_tag :mi %>
+<%= hidden_field_tag :mc,nil %>
 <%= hidden_field_tag :r_middle_id, rc.id %><br>
-<%= radio_button_tag :itp ,"0" %>チェックボックス
-<%= radio_button_tag :itp ,"1" %>範囲
-<%= radio_button_tag :itp ,"2" %>数値
-<%= radio_button_tag :itp ,"3" %>ラジオボタン
+<%= radio_button_tag :itp ,"チェックボックス", {:checked => true} %>チェックボックス
+<%= radio_button_tag :itp ,"範囲" %>範囲
+<%= radio_button_tag :itp ,"数値" %>数値
+<%= radio_button_tag :itp ,"ラジオボタン" %>ラジオボタン
 <%= submit_tag '登録' %><br>
 <% end %>
- 
-
+ <% elsif rc.kind_of?(Minor)%>
+<p>小カテゴリ名:<%= rc.nid %></p>
+<p>上位カテゴリ名:<%= Middle.find(rc.middle_id).did %></p>
+<p>入力タイプ:<%= rc.input_type %></p>
+<%= button_to 'カテゴリ削除','delete',{method: :get,params: {d_id: rc.id,target: 'minor'}} %>
  <% end %>
  <% end %>
