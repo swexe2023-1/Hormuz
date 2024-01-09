@@ -1,0 +1,21 @@
+<h1>seller_purchased_view</h1>
+<%= link_to "前ページへ戻る","/buy_result/cart_view"%>
+
+<% if @cart.size>=1 %>
+<% @cart.each do |c| %>
+<p>--------------------------</p>
+<p>購入者名:<%= User.find(c[0]).uid%></p>
+<p>住所:<%= User.find(c[0]).address%></p>
+<p>商品名:<%= Product.find(c[1]).pid %></p>
+<% if Product.find(c[1]).img!=nil %>
+<%= image_tag Product.find(c[1]).img,:size =>'160x160' %>
+<% end %>
+<p>価格:<%= Product.find(c[1]).price %> 円</p>
+<p>個数:<%= @su.where(product_id: c[1]).count %></p>
+<%= button_to '送信完了','seller_purchased_delete',{method: :get,params: {uid: c[0],sid: @su[0].seller_id,pid: c[1]}} %>
+
+<% end %>
+
+<% else %>
+<p>商品が購入されていません</p>
+<% end %>

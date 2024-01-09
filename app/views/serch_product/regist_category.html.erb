@@ -1,5 +1,6 @@
 <% major=true %>
 <%= link_to "前ページへ戻る","/serch_product/category_view"%>
+<p>商品価格のカテゴリ追加は「価格範囲」という名前で追加してください</p>
 <% @regi_cate.each do |rc| %>
  <p>-----------------------</p>
  <% if rc.kind_of?(String) %>
@@ -26,7 +27,7 @@
 
 <%= button_to 'カテゴリ削除','delete',{method: :get,params: {d_id: rc.id,target: 'middle'}} %>
 
- <%= form_tag '/serch_product/regist_category',method: :get, data: { turbo: false } do %>
+<%= form_tag '/serch_product/regist_category',method: :get, data: { turbo: false } do %>
 <%= label_tag :mc, '中カテゴリ追加' %>
 <%= text_field_tag :mc %>
 <%= hidden_field_tag :r_major_id, session[:edit_id] %>
@@ -42,8 +43,6 @@
 <%= hidden_field_tag :r_middle_id, rc.id %><br>
 <%= radio_button_tag :itp ,"チェックボックス", {:checked => true} %>チェックボックス
 <%= radio_button_tag :itp ,"範囲" %>範囲
-<%= radio_button_tag :itp ,"数値" %>数値
-<%= radio_button_tag :itp ,"ラジオボタン" %>ラジオボタン
 <%= submit_tag '登録' %><br>
 <% end %>
  <% elsif rc.kind_of?(Minor)%>

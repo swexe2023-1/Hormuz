@@ -1,7 +1,65 @@
 class SerchProductController < ApplicationController
     def serch
+        session[:serch_target]=21
+        gen_target(session[:serch_target])
     end
     
+    def serch_result
+        x=Category.where(key_word: Major.find(params[:major_id]).jid)
+        rs=[]
+        x.each do |r|
+            rs.push(r.product_id)
+        end
+        ch=[]
+        if params[:checks]!=nil
+        params[:checks].each do |r|
+            if r[1]=="1"
+                s=Category.find_by(key_word: Minor.find(r[0]).nid).product_id
+                if rs.include?(s)
+                ch.push(s)
+                end
+            end
+        end
+        end
+        maney_range=[]
+        another_range=[]
+        params[:upper_ranges].each do |r|
+            if Minor.find(r[0].to_i).nid=='価格範囲'
+                params[:upper_ranges].each do |r|
+                    params[:lower_ranges].each do |t|
+                        if r[0]==t[0]
+                            rs.each do |k|
+                                n=Product.find(k).price
+                                if n<=r[1].to_i && n>=t[1].to_i
+                                    maney_range.push(k)
+                                end
+                            end
+                        end
+                    end
+                end
+            elsif Minor.find(r[0].to_i).nid!='' || Minor.find(r[0].to_i).nid!=nil
+                x=Category.all
+                x.each do |k|
+                    if k.key_word =~ /\A[0-9]+\z/
+                        params[:upper_ranges].each do |r|
+                        params[:lower_ranges].each do |t|
+                            if k.key_word.to_i<=r[1].to_i && k.key_word.to_i>=t[1].to_i && rs.include?(k.product_id)
+                            another_range.push(k.product_id)
+                            end
+                        end
+                        end
+                    end
+                end
+            end
+        #Minor.find(params[:upper_ranges][0][0].to_i)
+    end
+    another_range.each do |an|
+        if maney_range.include?(an)
+            ch.push(an)
+        end
+    end
+        @rs=ch.uniq
+    end
     def category_view
         session[:edit_id]=nil
         @all_major=Major.all
@@ -34,13 +92,18 @@ class SerchProductController < ApplicationController
         end
         
         #小カテゴリ登録
-        test_calc(params[:mi])
+        #test_calc(params[:mi])
         if params[:mi]!=nil && session[:befor_minor]!=[params[:mi],params[:r_middle_id],params[:itp]]
             add_minor
         end
         #@major_id=12
-        @regi_cate=[Major.find(session[:edit_id]).jid]
-        middles=Middle.where(major_id: session[:edit_id])
+        gen_target(session[:edit_id])
+        #redirect_to '/serch_product/regist_category'
+    end
+    
+    def gen_target(target)
+        @regi_cate=[Major.find(target).jid]
+        middles=Middle.where(major_id: target)
         
         if middles.size>0
         middles.each do |ms|
@@ -54,7 +117,6 @@ class SerchProductController < ApplicationController
             end
         end
         end
-        #redirect_to '/serch_product/regist_category'
     end
     
     def add_middle
