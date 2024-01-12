@@ -14,20 +14,26 @@ class SerchProductController < ApplicationController
         if params[:checks]!=nil
         params[:checks].each do |r|
             if r[1]=="1"
-                s=Category.find_by(key_word: Minor.find(r[0]).nid).product_id
-                if rs.include?(s)
+                s=Category.find_by(key_word: Minor.find(r[0]).nid)
+                if s!=nil
+                if rs.include?(s.product_id)
                 ch.push(s)
                 end
+            end
             end
         end
         end
         maney_range=[]
         another_range=[]
+        
+        
         params[:upper_ranges].each do |r|
             if Minor.find(r[0].to_i).nid=='価格範囲'
                 params[:upper_ranges].each do |r|
                     params[:lower_ranges].each do |t|
                         if r[0]==t[0]
+                            r[1]=upper_nil_check(r[1])
+                            t[1]=under_nil_check(t[1])
                             rs.each do |k|
                                 n=Product.find(k).price
                                 if n<=r[1].to_i && n>=t[1].to_i
@@ -43,6 +49,8 @@ class SerchProductController < ApplicationController
                     if k.key_word =~ /\A[0-9]+\z/
                         params[:upper_ranges].each do |r|
                         params[:lower_ranges].each do |t|
+                            r[1]=upper_nil_check(r[1])
+                            t[1]=under_nil_check(t[1])
                             if k.key_word.to_i<=r[1].to_i && k.key_word.to_i>=t[1].to_i && rs.include?(k.product_id)
                             another_range.push(k.product_id)
                             end
@@ -169,6 +177,18 @@ class SerchProductController < ApplicationController
         puts '------------'
         puts p
         puts '------------'
+    end
+    
+    def upper_nil_check(p)
+        if p==nil || p==''
+            p='2147483647'
+        end
+    end
+    
+    def under_nil_check(p)
+        if p==nil || p==''
+            p='0'
+        end
     end
     
     def delete_middles(pa)
