@@ -1,0 +1,11 @@
+<h1>serch_result</h1>
+<%= link_to "カテゴリ編集ページへ戻る","/serch_product/category_view"%>
+<p><%= @rs.count %> 件見つかりました</p>
+<% @rs.each do |r| %>
+<p>----------------------------------------</p>
+<p><%= Product.find(r).pid %></p>
+<% if Product.find(r).img!=nil %>
+<%= image_tag Product.find(r).img,:size =>'160x160' %>
+<% end %>
+<%= button_to '商品ページへ(リンク切れ)','商品ページリンク',{method: :get,params: {product_id: r}} %>
+<% end %>

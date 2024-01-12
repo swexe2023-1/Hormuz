@@ -1,0 +1,19 @@
+<% major=true %>
+<%= link_to "前ページへ戻る","/serch_product/category_view"%>
+<% @regi_cate.each do |rc| %>
+ <p>-----------------------</p>
+ <% if rc.kind_of?(String) %>
+ <% if major %>
+ <p>大カテゴリ名:<%= rc %></p>
+ <% major_id=Major.find_by(jid: rc).id %>
+ <% end %>
+ 
+<% major=false %>
+<% elsif rc.kind_of?(Middle) %>
+<p>中カテゴリ名:<%= rc.did %></p>
+<% elsif rc.kind_of?(Minor)%>
+<p>小カテゴリ名:<%= rc.nid %></p>
+<p>入力タイプ:<%= rc.input_type %></p>
+<%= button_to 'カテゴリ削除','delete',{method: :get,params: {d_id: rc.id,target: 'minor'}} %>
+ <% end %>
+ <% end %>

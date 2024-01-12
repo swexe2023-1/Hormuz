@@ -1,1 +1,37 @@
 <h1>serch</h1>
+<% major=true %>
+<%= link_to "前ページへ戻る","/serch_product/category_view"%>
+<%= form_tag '/serch_product/serch_result',method: :get, data: { turbo: false } do %>
+<% @regi_cate.each do |rc| %>
+ 
+ <% if rc.kind_of?(String) %>
+ <% if major %>
+ <p><%= rc %></p>
+
+ <% major_id=Major.find_by(jid: rc).id %>
+ <%= hidden_field_tag :major_id, major_id %>
+ <% end %>
+ 
+<% major=false %>
+<% elsif rc.kind_of?(Middle) %>
+<p>-----------------------</p>
+<p><%= rc.did %></p>
+<% elsif rc.kind_of?(Minor)%>
+<% if rc.input_type=='チェックボックス' %>
+
+<p><%= check_box "checks", rc.id,{} %><%= rc.nid %></p>
+
+<% elsif rc.input_type=='範囲' %>
+<p><%= rc.nid %></p>
+<p>上限:<%= number_field "upper_ranges",rc.id,{} %></p>
+<p>下限:<%= number_field "lower_ranges",rc.id,{} %></p>
+
+<% else %>
+<p>商品を見つけられませんでした</p>
+<% end %>
+
+<% end %>
+<% end %>
+<%= submit_tag "商品を検索" %>
+
+<% end %>

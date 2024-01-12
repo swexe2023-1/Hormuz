@@ -1,9 +1,7 @@
-<h1>cart_view</h1>
+<h1>purchased_view</h1>
 <%= link_to "前ページへ戻る","/buy_result/cart_view"%>
 
 <% if @cart.size>=1 %>
-<p>合計:<%= @sum_price %> 円</p>
-<%= link_to "購入する","/buy_result/buied"%>
 <% @cart.each do |c| %>
 <p>--------------------------</p>
 <p>商品名:<%= Product.find(c).pid %></p>
@@ -12,9 +10,8 @@
 <% end %>
 <p>価格:<%= Product.find(c).price %> 円</p>
 <p>個数:<%= @users_cart.where(product_id: c).count %></p>
-<%= button_to 'カートから削除','cp_delete',{method: :get,params: {d_id: c}} %>
 <% end %>
 
 <% else %>
-<p>カートに商品が入っていません</p>
+<p>商品が購入されてません</p>
 <% end %>
