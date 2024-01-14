@@ -3,8 +3,15 @@
 <%= form_tag seller_signin_path, method: :post, data: { turbo: false } do %>
     <%= label_tag :sid, '販売者ID' %>
     <%= text_field_tag :sid %>
+    
+    <br>
+    <% #↑1行近藤追加 %>
+    
     <%= label_tag :password, 'パスワード' %>
     <%= password_field_tag :password %>
+    
+    <br>
+    <% #↑1行近藤追加 %>
     <%= submit_tag 'ログイン' %>
 <% end %>
 

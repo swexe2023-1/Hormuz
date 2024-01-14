@@ -3,8 +3,16 @@
 <%= form_tag user_signin_path, method: :post, data: { turbo: false } do %>
     <%= label_tag :uid, 'ユーザーID' %>
     <%= text_field_tag :uid %>
+    
+    <br>
+    <% #↑1行近藤追加 %>
+    
     <%= label_tag :password, 'パスワード' %>
     <%= password_field_tag :password %>
+    
+    <br>
+    <% #↑1行近藤追加 %>
+    
     <%= submit_tag 'ログイン' %>
 <% end %>
 

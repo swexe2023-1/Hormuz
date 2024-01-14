@@ -1,24 +1,23 @@
 <h1>商品追加画面</h1>
-<%= form_for @product, url: { action: :create } do |f| %>
-    <p>
-        <%= label_tag :seller_id, '販売者ID' %>
-        <%= text_field_tag :seller_id %>
-    </p>
+<%= form_for @product,method: :posts, url: { action: :create } do |f| %>
     <p>
         <%= label_tag :pid, '商品名' %>
-        <%= text_field_tag :sid %>
+        <%= text_field_tag :pid %>
     </p>
     <p>
         <%= label_tag :price, '価格' %>
-        <%= text_field_tag :seller_id %>
+        <%= text_field_tag :price %>
     </p>
     <p>
         <%= label_tag :description, '商品説明' %>
-        <%= text_field_tag :address %>
+        <%= text_field_tag :description %>
     </p>
     <p>
-        <%= label_tag :img, '画像URL' %>
-        <%= text_field_tag :img %>
+        <%= f.file_field :img %>
+        <% #↑一行近藤改変 %>
     </p>
     <%= submit_tag '登録' %>
+    
+    <script>
+
 <% end %>

@@ -1,6 +1,6 @@
 class SerchProductController < ApplicationController
     def serch
-        session[:serch_target]=21
+        session[:serch_target]=params[:major_id]
         gen_target(session[:serch_target])
     end
     
@@ -17,11 +17,12 @@ class SerchProductController < ApplicationController
                 s=Category.find_by(key_word: Minor.find(r[0]).nid)
                 if s!=nil
                 if rs.include?(s.product_id)
-                ch.push(s)
+                ch.push(s.product_id)
                 end
             end
             end
         end
+        
         end
         maney_range=[]
         another_range=[]
@@ -29,14 +30,14 @@ class SerchProductController < ApplicationController
         
         params[:upper_ranges].each do |r|
             if Minor.find(r[0].to_i).nid=='価格範囲'
-                params[:upper_ranges].each do |r|
+                params[:upper_ranges].each do |n|
                     params[:lower_ranges].each do |t|
-                        if r[0]==t[0]
-                            r[1]=upper_nil_check(r[1])
+                        if n[0]==t[0]
+                            n[1]=upper_nil_check(n[1])
                             t[1]=under_nil_check(t[1])
                             rs.each do |k|
-                                n=Product.find(k).price
-                                if n<=r[1].to_i && n>=t[1].to_i
+                                m=Product.find(k).price
+                                if m<=n[1].to_i && m>=t[1].to_i
                                     maney_range.push(k)
                                 end
                             end
@@ -61,12 +62,41 @@ class SerchProductController < ApplicationController
             end
         #Minor.find(params[:upper_ranges][0][0].to_i)
     end
+    
+    if another_range!=[] && maney_range!=[]
     another_range.each do |an|
         if maney_range.include?(an)
             ch.push(an)
         end
     end
-        @rs=ch.uniq
+    elsif another_range==[]
+           maney_range.each do |k|
+               ch.push(k)
+           end
+    end
+    if maney_range==[]
+        ch=[]
+    end
+    
+    if params[:input_keyword]!=''
+        keywords=params[:input_keyword].split(' ')
+        key_array=[]
+        keywords.each do |k|
+            c=Category.find_by(key_word: k)
+            if c!=nil
+            key_array.push(c.product_id)
+            end
+        end
+        ch=[]
+        key_array.each do |k|
+            rs.include?(k)
+            ch.push(k)
+        end
+        
+    end
+    
+        session[:result]=ch.uniq
+        
     end
     def category_view
         session[:edit_id]=nil
@@ -173,6 +203,16 @@ class SerchProductController < ApplicationController
         params[:mi]=nil
     end
     
+    def product_pages
+        @product=Product.find(params[:product_id])
+    end
+    
+    def cart_in
+        Cart.create(user_id: session[:login_user_id],product_id: params[:p_id])
+        test_calc(params[:p_id])
+        redirect_to root_path
+    end
+    
     def test_calc(p)
         puts '------------'
         puts p
@@ -204,4 +244,6 @@ class SerchProductController < ApplicationController
             end
         end
     end
+    
+    
 end

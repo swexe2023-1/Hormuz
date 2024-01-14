@@ -1,0 +1,11 @@
+<% p=Product.all %>
+<% if p!=[] %>
+<% p.each do |x| %>
+<p>----------------------</p>
+<p><%= x.pid %></p>
+<%= x.seller_id %>
+<%= button_to '削除','/buy_result/ad_product',{method: :get,params: {p_id: x.id}} %>
+<% end %>
+<% else %>
+<p>商品がありません</p>
+<% end %>

@@ -1,0 +1,31 @@
+<p><%= link_to "トップページへ戻る", user_index_path%></p>
+<% #↑一行近藤追加 %>
+<% if session[:login_user_id]%>
+    <p><%= link_to "ログアウト", user_logout_path%></p>
+    <% #近藤追加　%>
+    <p><%= link_to "アカウント削除", user_destroy_path%></p>
+    <p><%= link_to "カートを表示する", '/buy_result/cart_view'%></p>
+    <p><%= link_to "購入履歴を表示する", '/buy_result/purchased_view'%></p>
+    <% #ここまで %>
+<% else %>
+    <p><%= link_to "ログイン", user_login_path%></p>
+    <p><%= link_to "新規登録", new_admin_path %></p>
+<% end %>
+
+<p>--------</p>
+<% #近藤追加　%>
+<% if session[:seller]==nil %>
+<p><%= link_to "販売者アカウントログイン", '/seller/login'%></p>
+<p><%= link_to "販売者アカウント作成", '/seller/new'%></p>
+<% else %>
+<p><%= link_to "販売者アカウントトップページ", '/seller'%></p>
+<p><%= link_to "販売者アカウントログアウト", '/seller/logout'%></p>
+<% end %>
+<p>--------</p>
+<p><%= link_to "管理者トップページ", '/admin'%></p>
+<% if session[:admin_id]==nil %>
+<p><%= link_to "管理者アカウント作成", '/admin/new'%></p>
+<% else %>
+<p><%= link_to "管理者アカウントログアウト", '/admin/logout'%></p>
+<% end %>
+<% #ここまで %>

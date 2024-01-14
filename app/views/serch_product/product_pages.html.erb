@@ -1,0 +1,10 @@
+<h1><%= @product.pid %></h1>
+<p><%= @product.description%></p>
+<% if session[:login_user_id] !=nil %>
+<%= button_to 'カートに入れる','/serch_product/cart_in',{method: :get,params: {p_id: @product.id}} %>
+<% else %>
+<p>カートに入れるにはログインしてください</p>
+<% end %>
+<% if @product.img!=nil %>
+<%= image_tag @product.img,:size =>'160x160' %>
+<% end %>

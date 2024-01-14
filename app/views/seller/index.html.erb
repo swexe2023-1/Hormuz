@@ -1,8 +1,34 @@
 <% @products.each do |e| %>
-    <p>
-        <%= e.price %>
-        <%= link_to '削除', product_path(e), data: { turbo_method: :delete } %>
-    </p>
+    <% #近藤追記 %>
+    <p>-------------------------------</p>
+    <p>商品名:<%= e.pid %></p>
+    <p>価格:<%= e.price %></p>
+    <% if e.img!=nil %>
+        <%= image_tag e.img,:size =>'160x160' %>
+    <% end %><br>
+    
+    <%= form_tag '/seller/set_keyword',method: :post, data: { turbo: false } do %>
+    <%= label_tag :kw, 'キーワード追加' %>
+    <%= text_field_tag :kw %>
+    <%= hidden_field_tag :product_id, e.id %>
+    <%= submit_tag '登録' %>
+    <% end %>
+    
+    <% x=Category.where(product_id: e.id) %>
+    <% x.each do |y| %>
+    <p>キーワード:<%= y.key_word %></p>
+    <% end %>
+    
+    <br>
+    <% #ここまで %>
+    <%= link_to '削除', product_path(e), data: { turbo_method: :delete } %>
+    
+  
 <% end %>
+<p>-------------------------------</p>
 <p><%= link_to "商品追加", new_product_path%></p>
+<% #近藤追記 %>
+<p><%= link_to "販売者アカウント削除", '/seller/destroy'%></p>
+<p><%= link_to "販売者アカウント販売履歴確認", '/buy_result/seller_purchased_view'%></p>
+<% #ここまで %>
 <p><%= link_to "ログアウト", seller_logout_path%></p>

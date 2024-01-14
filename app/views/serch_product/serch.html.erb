@@ -1,7 +1,11 @@
-<h1>serch</h1>
+<h1>検索</h1>
 <% major=true %>
-<%= link_to "前ページへ戻る","/serch_product/category_view"%>
 <%= form_tag '/serch_product/serch_result',method: :get, data: { turbo: false } do %>
+<p>キーワード検索:<%= text_field_tag :input_keyword %></p>
+<p>キーワード検索が優先されます。以下の条件を指定しても<br>
+キーワードが入力されている場合には無効となります。<br>
+複数入力したい場合は半角スペースで区切ってください。
+</p>
 <% @regi_cate.each do |rc| %>
  
  <% if rc.kind_of?(String) %>
