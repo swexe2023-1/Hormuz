@@ -12,6 +12,7 @@ class BuyResultController < ApplicationController
             end
         end
         #test_calc(@users_cart)
+
     end
     
     def product_all

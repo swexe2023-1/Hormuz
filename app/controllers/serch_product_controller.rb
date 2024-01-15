@@ -19,7 +19,7 @@ class SerchProductController < ApplicationController
                 if rs.include?(s.product_id)
                 ch.push(s.product_id)
                 end
-            end
+                end
             end
         end
         
@@ -244,6 +244,4 @@ class SerchProductController < ApplicationController
             end
         end
     end
-    
-    
 end

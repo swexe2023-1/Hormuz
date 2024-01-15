@@ -1,0 +1,26 @@
+<h1>商品編集画面</h1>
+<%= form_for @product , url: {action: :update} do |f| %>
+    <p>
+        <%= label_tag :seller_id, '販売者ID' %>
+        <%= text_field_tag :seller_id %>
+    </p>
+    <p>
+        <%= label_tag :pid, '商品名' %>
+        <%= text_field_tag :pid %>
+    </p>
+    <p>
+        <%= label_tag :price, '価格' %>
+        <%= text_field_tag :price %>
+    </p>
+    <p>
+        <%= label_tag :description, '商品説明' %>
+        <%= text_field_tag :description %>
+    </p>
+    <p>
+        <!--%= form_tag("product/create",{multipart:true}) %-->
+        <!--input name="img" type="file"-->
+        <%= label_tag :img, '商品画像' %>
+        <%= file_field_tag :img %>
+    </p>
+    <%= submit_tag '更新' %>
+<% end %>

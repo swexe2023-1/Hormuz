@@ -13,8 +13,8 @@ class UserController < ApplicationController
     create_pass=nil
     if params[:user][:pass]==params[:user][:pass_confirmation]
       if User.find_by(uid: params[:uid])==nil
-    create_pass=params[:user][:pass]
-  end
+        create_pass=params[:user][:pass]
+      end
     end
     
     @user = User.new(uid: params[:uid], pass: create_pass,
@@ -86,5 +86,5 @@ class UserController < ApplicationController
         puts '-----------------------'
         puts k
         puts '-----------------------'
-      end
+    end
 end
