@@ -31,9 +31,12 @@ class AdminController < ApplicationController
         if admin && BCrypt::Password.new(admin.password) == params[:password]
           session[:login_aid] = params[:aid]
           @admin = Admin.all
+          session[:seller]=nil
+          session[:login_user_id]=nil
+          session[:admin_id]=admin.id
           redirect_to admin_index_path
         else
-          render "login"
+          render "index"
         end
     end
       

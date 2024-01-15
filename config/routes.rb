@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :admin, only: [:index,:new,:create,:destroy]
   post 'admin/signin'
   get 'admin/logout'
-  resources :product, only: [:new,:create,:destroy]
+  resources :product
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
