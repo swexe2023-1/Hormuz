@@ -3,7 +3,7 @@
         <p>---------------------------------------</p>
         <p><%= e.jid %></p>
        
-       <%= button_to 'この商品を検索する','serch_product/serch',{method: :get,params: {major_id: e.id}} %>
+       <%= button_to 'この商品を検索する','/serch_product/serch',{method: :get,params: {major_id: e.id}} %>
         <!--%= link_to '削除', user_path(e), data: { turbo_method: :delete } %-->
     
 <% end %>
