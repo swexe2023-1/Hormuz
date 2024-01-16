@@ -27,7 +27,7 @@ class SerchProductController < ApplicationController
         maney_range=[]
         another_range=[]
         
-        
+        if params[:upper_range]!=nil
         params[:upper_ranges].each do |r|
             if Minor.find(r[0].to_i).nid=='価格範囲'
                 params[:upper_ranges].each do |n|
@@ -77,6 +77,14 @@ class SerchProductController < ApplicationController
     if maney_range==[]
         ch=[]
     end
+    
+    else
+    rs.each do |r|
+        ch.push(r)
+    end
+    end
+    
+    
     
     if params[:input_keyword]!=''
         keywords=params[:input_keyword].split(' ')

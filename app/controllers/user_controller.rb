@@ -6,7 +6,7 @@ class UserController < ApplicationController
   
   def new
     @user = User.new
-    render layout: "no_sidebar"
+    #render layout: "no_sidebar"
   end
 
   def create
