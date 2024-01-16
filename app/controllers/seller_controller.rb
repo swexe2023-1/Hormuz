@@ -15,7 +15,7 @@ class SellerController < ApplicationController
         #create_pass = BCrypt::Password.create(params[:password])
         @seller = Seller.new(sid: params[:sid], store_name: params[:store_name],
         pass: params[:seller][:pass], address: params[:address],
-        phone: params[:phone], pass_confirmation: params[:pass_confirmation])
+        phone: params[:phone].to_s, pass_confirmation: params[:pass_confirmation])
         if @seller.save
             redirect_to root_path
         else

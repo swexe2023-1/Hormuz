@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   resources :admin, only: [:index,:new,:create,:destroy]
   post 'admin/signin'
   get 'admin/logout'
+  get 'product/edit', to: 'product#edit'
+  post 'product/pd_edit', to: 'product#pd_edit'
   resources :product
+    resources :pd_edit
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

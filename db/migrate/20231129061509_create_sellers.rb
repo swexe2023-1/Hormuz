@@ -5,7 +5,7 @@ class CreateSellers < ActiveRecord::Migration[7.0]
       t.string :store_name
       t.string :password
       t.string :address
-      t.integer :phone
+      t.string :phone
 
       t.timestamps
     end

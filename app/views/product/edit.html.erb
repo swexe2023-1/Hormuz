@@ -1,13 +1,10 @@
 <h1>商品編集画面</h1>
-<%= form_for @product , url: {action: :update} do |f| %>
-    <p>
-        <%= label_tag :seller_id, '販売者ID' %>
-        <%= text_field_tag :seller_id %>
-    </p>
+<%= form_for @product,method: :posts, url: { action: :pd_edit } do |f| %>
     <p>
         <%= label_tag :pid, '商品名' %>
         <%= text_field_tag :pid %>
     </p>
+    <%= hidden_field_tag :p_id, @p_id %>
     <p>
         <%= label_tag :price, '価格' %>
         <%= text_field_tag :price %>
@@ -20,7 +17,7 @@
         <!--%= form_tag("product/create",{multipart:true}) %-->
         <!--input name="img" type="file"-->
         <%= label_tag :img, '商品画像' %>
-        <%= file_field_tag :img %>
+        <%= f.file_field :img %>
     </p>
     <%= submit_tag '更新' %>
 <% end %>

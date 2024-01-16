@@ -11,7 +11,7 @@ class ProductController < ApplicationController
           file_name=Digest::SHA256.hexdigest(params[:product][:img].original_filename).to_s
           file_name+='.'+params[:product][:img].original_filename.split('.')[-1]
           
-          upload_dir=Rails.root.join("public","product_img")
+          upload_dir=Rails.root.join("public")
           upload_file_path=upload_dir+file_name
           #test_calc(upload_file_path)
           File.binwrite(upload_file_path,params[:product][:img].read)
@@ -19,7 +19,7 @@ class ProductController < ApplicationController
       end
       
       if file_name!=nil
-        file_name='/product_img/'+file_name
+        file_name='/'+file_name
       end
       #ここまで
       @product = Product.new(pid: params[:pid], seller_id: session[:seller],
@@ -30,33 +30,39 @@ class ProductController < ApplicationController
     end
     
     def edit
-      @product = Product.find(params[:id])
+      test_calc(params[:p_id])
+      @p_id=params[:p_id]
+      @product = Product.find(params[:p_id])
     end
     
-    def update
-      @product = Product.find(params[:id])
+    def pd_edit
+      x=Product.find(params[:p_id])
+      check_set(params[:pid],x.pid)
+      check_set(params[:price],x.price)
+      check_set(params[:description],x.description)
+      
       if params[:product]!=nil
         if['jpg','png','jpeg'].include?(params[:product][:img].original_filename.split('.')[-1])
           file_name=Digest::SHA256.hexdigest(params[:product][:img].original_filename).to_s
           file_name+='.'+params[:product][:img].original_filename.split('.')[-1]
           
-          upload_dir=Rails.root.join("public","product_img")
+          upload_dir=Rails.root.join("public")
           upload_file_path=upload_dir+file_name
           #test_calc(upload_file_path)
           File.binwrite(upload_file_path,params[:product][:img].read)
         end
-      end
       
-      if file_name!=nil
-        file_name='/product_img/'+file_name
-      end
-      
-      if @product = Product.update(pid: params[:pid], seller_id: session[:seller],
-        price: params[:price], description: params[:description], img: file_name)
-      @product.save
-       redirect_to seller_index_path
+      x.img='/'+file_name
+      x.save
+      redirect_to seller_index_path
       else
         render 'edit'
+      end
+    end
+    
+    def check_set(a,b)
+      if a!=nil && a!=''
+        b=a
       end
     end
     
